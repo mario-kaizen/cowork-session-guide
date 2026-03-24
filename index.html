@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Claude Cowork — Session Guide | Kaizen Collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1A1A18;
+    --cream: #F5F0E8;
+    --gold: #C9A84C;
+    --gold-dark: #A8893D;
+    --gold-light: #E8DDB8;
+    --gold-pale: #F5F0DC;
+    --charcoal: #2E2E2A;
+    --stone: #8C8778;
+    --parchment: #EDE8DC;
+    --white: #FEFDFB;
+    --black: #0F0F0D;
+    --green: #5A9E6F;
+    --green-light: #E8F2EB;
+    --amber: #C4964A;
+    --amber-light: #F5EFE0;
+    --red: #C45B4A;
+    --neutral-50: #FAF9F7;
+    --neutral-100: #F0EDE8;
+    --neutral-200: #E0DBD3;
+    --neutral-300: #C7C1B7;
+    --neutral-400: #A39D93;
+    --neutral-500: #7A756C;
+    --neutral-600: #5C5850;
+    --neutral-700: #3D3A35;
+    --neutral-800: #2A2825;
+    --neutral-900: #1A1917;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+
+  /* ============================================
+     TOP BAR
+     ============================================ */
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--ink);
+    border-bottom: 1px solid var(--charcoal);
+  }
+
+  .top-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .brand-logo {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  .brand-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--neutral-700);
+  }
+
+  .brand-context {
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: var(--stone);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .tab-nav {
+    display: flex;
+    gap: 0;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--neutral-500);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 24px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .tab-btn:hover { color: var(--neutral-300); }
+  .tab-btn.active { color: var(--cream); }
+
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .tab-btn .tab-number {
+    font-size: 9px;
+    color: var(--neutral-600);
+    margin-right: 6px;
+    font-weight: 600;
+  }
+
+  .tab-btn.active .tab-number { color: var(--gold); }
+
+  /* ============================================
+     PAGES & SECTIONS
+     ============================================ */
+  .page {
+    display: none;
+    padding-top: 68px;
+    min-height: 100vh;
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  .page.active { display: block; }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section {
+    padding: 80px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-narrow {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* ============================================
+     HERO
+     ============================================ */
+  .hero {
+    min-height: calc(100vh - 68px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 40px;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 50% at 70% 20%, rgba(201,168,76,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 36px;
+    font-weight: 500;
+    opacity: 0;
+    animation: slideUp 0.7s ease 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(40px, 5.5vw, 68px);
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: slideUp 0.7s ease 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--stone);
+    max-width: 520px;
+    margin: 0 auto 52px;
+    font-weight: 300;
+    line-height: 1.75;
+    opacity: 0;
+    animation: slideUp 0.7s ease 0.6s forwards;
+  }
+
+  .hero-line {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 40px;
+    opacity: 0;
+    animation: slideUp 0.5s ease 0.8s forwards;
+  }
+
+  .hero-session {
+    font-family: var(--font-body);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+    font-weight: 500;
+    opacity: 0;
+    animation: slideUp 0.5s ease 1s forwards;
+  }
+
+  /* ============================================
+     SECTION HEADERS
+     ============================================ */
+  .section-header {
+    margin-bottom: 48px;
+  }
+
+  .section-number {
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold-dark);
+  }
+
+  .section-subtitle {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--stone);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  /* ============================================
+     DARK SECTION
+     ============================================ */
+  .section-dark {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .section-dark .section-number { color: var(--gold); }
+  .section-dark .section-title { color: var(--cream); }
+  .section-dark .section-subtitle { color: var(--stone); }
+
+  /* ============================================
+     PARCHMENT SECTION
+     ============================================ */
+  .section-parchment {
+    background: var(--parchment);
+  }
+
+  /* ============================================
+     PAIN CARDS
+     ============================================ */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .pain-card {
+    background: var(--charcoal);
+    padding: 36px 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    transition: background 0.3s ease;
+  }
+
+  .pain-card:hover {
+    background: var(--neutral-800);
+  }
+
+  .pain-number {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    color: var(--gold);
+    font-weight: 400;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+  }
+
+  .pain-content h3 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .pain-content p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--neutral-400);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ============================================
+     SOLUTION STACK
+     ============================================ */
+  .solution-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 48px;
+  }
+
+  .solution-card {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    padding: 40px;
+    position: relative;
+  }
+
+  .solution-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--gold);
+  }
+
+  .solution-label {
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .solution-card h3 {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .solution-card p {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--neutral-600);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* ============================================
+     CONNECTOR CARDS
+     ============================================ */
+  .connector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+
+  .connector-card {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    padding: 32px;
+    transition: all 0.3s ease;
+  }
+
+  .connector-card:hover {
+    border-color: var(--gold-light);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+
+  .connector-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-family: var(--font-body);
+  }
+
+  .connector-card h3 {
+    font-family: var(--font-heading);
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .connector-card .connector-what {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--gold-dark);
+    font-weight: 500;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .connector-card p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--neutral-600);
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .connector-tag {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.03em;
+  }
+
+  .tag-essential {
+    background: var(--gold-pale);
+    color: var(--gold-dark);
+  }
+
+  .tag-recommended {
+    background: var(--green-light);
+    color: var(--green);
+  }
+
+  .tag-advanced {
+    background: var(--neutral-100);
+    color: var(--neutral-600);
+  }
+
+  .connector-steps {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--neutral-100);
+  }
+
+  .connector-steps-label {
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .connector-step {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--neutral-600);
+    font-weight: 300;
+    line-height: 1.65;
+    padding: 4px 0 4px 20px;
+    position: relative;
+  }
+
+  .connector-step::before {
+    content: attr(data-step);
+    position: absolute;
+    left: 0;
+    font-weight: 600;
+    color: var(--gold-dark);
+    font-size: 12px;
+  }
+
+  .connector-step code {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    background: var(--neutral-50);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--neutral-700);
+  }
+
+  /* ============================================
+     TASK CARDS
+     ============================================ */
+  .task-category {
+    margin-bottom: 56px;
+  }
+
+  .task-category-header {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .task-category-sub {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--stone);
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .task-item {
+    background: var(--white);
+    border: 1px solid var(--neutral-100);
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: start;
+    transition: border-color 0.2s ease;
+  }
+
+  .task-item:hover {
+    border-color: var(--gold-light);
+  }
+
+  .task-item h4 {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .task-item p {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--neutral-500);
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  .task-tools {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-top: 2px;
+  }
+
+  .tool-pill {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .pill-canva { background: #8B3DFF15; color: #7B2FEF; }
+  .pill-notion { background: #00000010; color: var(--neutral-700); }
+  .pill-chrome { background: #4285F415; color: #3574D4; }
+  .pill-calendar { background: #0F9D5815; color: #0F9D58; }
+  .pill-gmail { background: #EA433515; color: #D03A2E; }
+  .pill-drive { background: #FBBC0415; color: #C99700; }
+  .pill-crm { background: #16A34A15; color: #15803D; }
+  .pill-cowork { background: var(--gold-pale); color: var(--gold-dark); }
+  .pill-computer { background: var(--amber-light); color: var(--amber); }
+
+  /* ============================================
+     BRIEF ANATOMY
+     ============================================ */
+  .brief-block {
+    background: var(--charcoal);
+    padding: 40px;
+    margin-top: 32px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--neutral-300);
+    white-space: pre-wrap;
+    position: relative;
+    border-left: 3px solid var(--gold);
+  }
+
+  .brief-block .brief-label {
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .brief-key {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .brief-value {
+    color: var(--cream);
+  }
+
+  /* ============================================
+     CALLOUT BLOCKS
+     ============================================ */
+  .callout-dark {
+    background: var(--ink);
+    padding: 56px 48px;
+    text-align: center;
+    position: relative;
+    margin: 64px 0;
+  }
+
+  .callout-dark::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+    opacity: 0.4;
+  }
+
+  .callout-dark p {
+    font-family: var(--font-heading);
+    font-size: clamp(20px, 2.5vw, 28px);
+    color: var(--cream);
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .callout-dark em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .callout-warm {
+    background: var(--parchment);
+    border-left: 3px solid var(--gold);
+    padding: 28px 32px;
+    margin: 32px 0;
+  }
+
+  .callout-warm p {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--neutral-700);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .callout-warm strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* ============================================
+     SETUP CHECKLIST
+     ============================================ */
+  .setup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .setup-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--charcoal);
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+
+  .setup-item:hover {
+    border-left-color: var(--gold);
+  }
+
+  .setup-check {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--neutral-600);
+    border-radius: 4px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .setup-check.checked {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+
+  .setup-check.checked::after {
+    content: '✓';
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .setup-item-content h4 {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 2px;
+  }
+
+  .setup-item-content p {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--neutral-500);
+    font-weight: 300;
+  }
+
+  /* ============================================
+     LIMITATIONS
+     ============================================ */
+  .limits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .limit-card {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-top: 3px solid var(--amber);
+    padding: 28px;
+  }
+
+  .limit-card h4 {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .limit-card p {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--neutral-600);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ============================================
+     FOOTER
+     ============================================ */
+  .pack-footer {
+    background: var(--ink);
+    padding: 48px 40px;
+    text-align: center;
+    border-top: 1px solid var(--charcoal);
+  }
+
+  .pack-footer .brand-logo {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .pack-footer p {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--neutral-600);
+    letter-spacing: 0.06em;
+  }
+
+  /* ============================================
+     DIVIDER
+     ============================================ */
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+    max-width: 200px;
+    margin: 0 auto;
+    opacity: 0.5;
+  }
+
+  /* ============================================
+     RESPONSIVE — TABLET
+     ============================================ */
+  @media (max-width: 1024px) {
+    .top-bar-inner { padding: 0 20px; }
+    .tab-btn { padding: 24px 14px; font-size: 10px; letter-spacing: 0.1em; }
+    .section { padding: 64px 32px; }
+    .connector-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ============================================
+     RESPONSIVE — MOBILE
+     ============================================ */
+  @media (max-width: 768px) {
+    /* Top bar becomes stacked: brand on top, tabs below */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .top-bar-inner {
+      flex-direction: column;
+      height: auto;
+      padding: 0;
+      gap: 0;
+    }
+
+    .brand {
+      width: 100%;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--charcoal);
+      justify-content: center;
+    }
+
+    .brand-context { display: none; }
+    .brand-divider { display: none; }
+    .brand-logo { font-size: 13px; }
+
+    /* Scrollable tab strip */
+    .tab-nav {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      justify-content: flex-start;
+      padding: 0 8px;
+      gap: 0;
+      flex-wrap: nowrap;
+    }
+
+    .tab-nav::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      padding: 14px 14px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .tab-btn .tab-number {
+      font-size: 8px;
+      margin-right: 4px;
+    }
+
+    /* Adjust page padding for taller mobile header */
+    .page {
+      padding-top: 100px;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 48px 24px;
+      min-height: calc(100vh - 100px);
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 8vw, 42px);
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      margin-bottom: 36px;
+    }
+
+    .hero-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      margin-bottom: 24px;
+    }
+
+    /* Sections */
+    .section {
+      padding: 48px 20px;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 6vw, 32px);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+    }
+
+    /* Pain cards */
+    .pain-card {
+      flex-direction: column;
+      gap: 8px;
+      padding: 24px 20px;
+    }
+
+    .pain-number {
+      font-size: 24px;
+    }
+
+    .pain-content h3 {
+      font-size: 17px;
+    }
+
+    .pain-content p {
+      font-size: 13px;
+    }
+
+    /* Solution cards */
+    .solution-card {
+      padding: 28px 24px;
+    }
+
+    .solution-card h3 {
+      font-size: 19px;
+    }
+
+    /* Connector grid */
+    .connector-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .connector-card {
+      padding: 24px 20px;
+    }
+
+    .connector-card h3 {
+      font-size: 17px;
+    }
+
+    .connector-step {
+      font-size: 12px;
+    }
+
+    /* Task items */
+    .task-item {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 20px;
+    }
+
+    .task-tools {
+      justify-content: flex-start;
+    }
+
+    .task-item h4 {
+      font-size: 15px;
+    }
+
+    .task-item p {
+      font-size: 12px;
+    }
+
+    .task-category-header {
+      font-size: 20px;
+    }
+
+    /* Brief blocks */
+    .brief-block {
+      padding: 20px;
+      font-size: 12px;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+
+    /* Callout blocks */
+    .callout-dark {
+      padding: 40px 24px;
+    }
+
+    .callout-dark p {
+      font-size: clamp(17px, 4vw, 22px);
+    }
+
+    .callout-warm {
+      padding: 20px 24px;
+    }
+
+    /* Setup items */
+    .setup-item {
+      padding: 16px 20px;
+    }
+
+    .setup-item-content h4 {
+      font-size: 14px;
+    }
+
+    .setup-item-content p {
+      font-size: 12px;
+    }
+
+    /* Limits grid */
+    .limits-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .limit-card {
+      padding: 24px 20px;
+    }
+
+    /* Footer */
+    .pack-footer {
+      padding: 36px 20px;
+    }
+
+    /* Inline text overrides for mobile */
+    .section p[style*="font-size: 16px"],
+    .section p[style*="font-size: 15px"] {
+      font-size: 14px !important;
+    }
+  }
+
+  /* ============================================
+     RESPONSIVE — SMALL MOBILE
+     ============================================ */
+  @media (max-width: 400px) {
+    .tab-btn {
+      padding: 12px 10px;
+      font-size: 9px;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-title {
+      font-size: 26px;
+    }
+
+    .section-title {
+      font-size: 22px;
+    }
+
+    .brief-block {
+      font-size: 11px;
+      padding: 16px;
+    }
+
+    .pain-card {
+      padding: 20px 16px;
+    }
+
+    .connector-card {
+      padding: 20px 16px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     TOP BAR
+     ============================================ -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="brand">
+      <span class="brand-logo">Kaizen Collective</span>
+      <div class="brand-divider"></div>
+      <span class="brand-context">Wednesday Training</span>
+    </div>
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="showTab('problem')">
+        <span class="tab-number">01</span>Problem
+      </button>
+      <button class="tab-btn" onclick="showTab('solution')">
+        <span class="tab-number">02</span>Solution
+      </button>
+      <button class="tab-btn" onclick="showTab('examples')">
+        <span class="tab-number">03</span>In Action
+      </button>
+      <button class="tab-btn" onclick="showTab('setup')">
+        <span class="tab-number">04</span>Setup
+      </button>
+      <button class="tab-btn" onclick="showTab('tasks')">
+        <span class="tab-number">05</span>Tasks
+      </button>
+      <button class="tab-btn" onclick="showTab('brief')">
+        <span class="tab-number">06</span>The Brief
+      </button>
+    </nav>
+  </div>
+</div>
+
+<!-- ============================================
+     TAB 1: THE PROBLEM
+     ============================================ -->
+<div id="problem" class="page active">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Session 2 — Wednesday Training</div>
+    <h1 class="hero-title">You're Not Bad at <em>Marketing</em></h1>
+    <p class="hero-subtitle">You're just the one doing all of it. And coaching. And managing staff. And replying to DMs at 10pm. Today that changes.</p>
+    <div class="hero-line"></div>
+    <div class="hero-session">Claude 101 · Session 2 · Kaizen Collective</div>
+  </div>
+
+  <div class="section section-dark">
+    <div class="section-header">
+      <div class="section-number">01 — The Problem</div>
+      <div class="section-title" style="color: var(--cream);">I've Seen This Pattern <em>700 Times</em></div>
+      <div class="section-subtitle">You know what to do. You've got the strategy. The constraint isn't knowledge — it's capacity.</div>
+    </div>
+
+    <p style="font-size: 16px; color: var(--neutral-400); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 48px;">I coach hundreds of business owners. The ones doing $10–20k a month almost always have the same week: they finish coaching clients, realise they haven't posted in three days, spend an hour on a caption that doesn't sound like them, open Canva and stare at templates for 20 minutes, close Canva, promise themselves they'll do it tomorrow, and then Monday comes around again.</p>
+
+    <p style="font-size: 16px; color: var(--neutral-400); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 48px;">Meanwhile the lead from last Tuesday still hasn't been followed up. The welcome sequence is still in draft. And the 6-week challenge you wanted to launch? Still an idea in your Notes app.</p>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-number">1</div>
+        <div class="pain-content">
+          <h3>Content takes you 10x longer than it should</h3>
+          <p>Not because you can't write. Because writing something that actually sounds like you — specific to your brand, your clients, your offer — requires you to sit down, think, and craft it. Every single time. Five posts a week at 45 minutes each is nearly 4 hours. Add design time and it's a full day gone. That's a day you could have spent coaching, selling, or building the business.</p>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-number">2</div>
+        <div class="pain-content">
+          <h3>The admin pile grows faster than you can clear it</h3>
+          <p>Every task on its own is small. Reply to that email. Write that welcome message. Update that SOP. Chase that invoice. But they stack up. And because none of them feel urgent enough to do right now, they sit there — until they become urgent. That's when you end up doing admin at 9pm instead of being present with your family.</p>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-number">3</div>
+        <div class="pain-content">
+          <h3>Delegation costs more time than it saves</h3>
+          <p>You've tried handing things off. To a VA, to a staff member, to that person who said they could help with marketing. The briefing took 40 minutes. The result came back at 60%. You spent another 30 minutes fixing it. Next time, you just did it yourself. So the bottleneck is still you — and now you've also lost trust in the process.</p>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-number">4</div>
+        <div class="pain-content">
+          <h3>Strategic work keeps getting pushed to "next week"</h3>
+          <p>You know you should be building a lead magnet. Researching what your competitors are doing. Rethinking your offer for Q2. Planning the campaign that could change your next quarter. But that kind of thinking needs uninterrupted time — and you don't have any. The urgent eats the important every single week.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout-dark">
+    <p>The cost isn't just your time. It's the <em>business you could be building</em> if you weren't trapped inside the one you're running.</p>
+  </div>
+
+</div>
+
+<!-- ============================================
+     TAB 2: THE SOLUTION
+     ============================================ -->
+<div id="solution" class="page">
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">02 — The Solution</div>
+      <div class="section-title">You Already Built the <em>Foundation</em></div>
+      <div class="section-subtitle">Everything I just described on the previous page? That's about to stop being your problem.</div>
+    </div>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 24px;">Last session you taught Claude who you are. This session, you teach it what to do. Here's how I think about the sequence we're working through together.</p>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 48px;">Session 1 was <strong style="font-weight: 500; color: var(--ink);">Claude Chat</strong> — you built your Business Profile, your Offer Document, your ICP, and your Brand Guidelines. Those documents are the intelligence layer. Claude now knows your business better than any VA you've ever briefed. Today we're adding <strong style="font-weight: 500; color: var(--ink);">Cowork</strong> — the execution layer. Claude stops advising and starts doing. And in the weeks after this, we go into <strong style="font-weight: 500; color: var(--ink);">Claude Code</strong> — where you build real systems and tools that live permanently inside your business. Each step raises the ceiling on what you can hand off.</p>
+
+    <div class="solution-stack">
+      <div class="solution-card">
+        <div class="solution-label">What You Built — Session 1</div>
+        <h3>Claude Chat — The Intelligence</h3>
+        <p>Your business documents loaded into Claude's Projects. This is the context layer that makes everything else work. Without it, Claude gives you generic output. With it, Claude sounds like someone who's been working in your business for six months. Every brief you write in Cowork draws on these documents — so the quality of what you built last session directly determines the quality of what you get from today.</p>
+      </div>
+      <div class="solution-card">
+        <div class="solution-label">What We're Adding — Today</div>
+        <h3>Claude Cowork — The Execution</h3>
+        <p>This is where the shift happens. In Chat, Claude responds to you one message at a time. In Cowork, you describe an outcome — "create my content plan for this week with matching Canva graphics" — and Claude plans the work, executes across multiple tools, and delivers finished assets to your desktop. You approve the plan, then step away. Come back to completed work. And with Dispatch, you can send tasks from your phone and find finished work waiting on your desktop. It's the difference between asking a team member a question and actually giving them a job to do.</p>
+      </div>
+      <div class="solution-card">
+        <div class="solution-label">What's Coming — Sessions 3 &amp; 4</div>
+        <h3>Claude Code — The Infrastructure</h3>
+        <p>This is where you start building things that don't exist yet. A lead scoring tool. An automated reporting system. A client onboarding flow that runs itself. Code is where AI stops being a productivity tool and becomes part of your business infrastructure. We've got two sessions on this — and you don't need to know how to code. But Cowork is the bridge that gets you comfortable with delegation at scale first.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout-dark">
+    <p>Chat taught Claude <em>who you are</em>. Cowork teaches Claude <em>what to do</em>. Code will teach Claude <em>how to build</em>.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">02B — Connectors</div>
+      <div class="section-title">Giving Claude <em>Access</em> to Your Tools</div>
+      <div class="section-subtitle">Cowork on its own can read your files and write documents. Connectors are what let it reach into the apps you already use — and that's where it gets powerful.</div>
+    </div>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 16px;">Think of connectors like giving a new team member login access on their first day. Without access, they can think and plan but they can't actually do anything. With access to Canva, Claude can design. With access to Notion, it can read and update your knowledge base. With access to Gmail, it can draft your emails.</p>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 48px;">And when there's no connector for something — like your Mindbody or Glofox dashboard — Computer Use lets Claude navigate your screen directly. It's slower, but it means nothing is completely off-limits.</p>
+
+    <div class="connector-grid">
+      <div class="connector-card">
+        <div class="connector-icon" style="background: #8B3DFF15; color: #7B2FEF;">C</div>
+        <h3>Canva</h3>
+        <div class="connector-what">Your design team</div>
+        <p>Claude generates social graphics, presentations, and marketing assets directly in Canva. It can resize for different platforms, apply your templates, and export finished files. This is the connector that saves you the most time — because design is the task most of you avoid.</p>
+        <div class="connector-steps">
+          <div class="connector-steps-label">How to connect</div>
+          <div class="connector-step" data-step="1.">Open Claude Desktop → <code>Settings</code> → <code>Connectors</code></div>
+          <div class="connector-step" data-step="2.">Find <code>Canva</code> in the list and click <code>Connect</code></div>
+          <div class="connector-step" data-step="3.">Sign into your Canva account and authorise access</div>
+          <div class="connector-step" data-step="4.">In any new chat, click the <code>+</code> button → <code>Connectors</code> → toggle Canva on</div>
+        </div>
+        <span class="connector-tag tag-essential">Set up today</span>
+      </div>
+
+      <div class="connector-card">
+        <div class="connector-icon" style="background: #00000010; color: var(--neutral-700);">N</div>
+        <h3>Notion</h3>
+        <div class="connector-what">Your knowledge base</div>
+        <p>Claude can search your notes, read your SOPs, create new pages, and update databases. If you store anything in Notion — meeting notes, content ideas, business docs — this connector means Claude can pull from all of it when working on a task. Context in, quality out.</p>
+        <div class="connector-steps">
+          <div class="connector-steps-label">How to connect</div>
+          <div class="connector-step" data-step="1.">Open Claude Desktop → <code>Settings</code> → <code>Connectors</code></div>
+          <div class="connector-step" data-step="2.">Find <code>Notion</code> and click <code>Connect</code></div>
+          <div class="connector-step" data-step="3.">Authorise Claude to access your Notion workspace</div>
+          <div class="connector-step" data-step="4.">In Notion: go to <code>Settings</code> → <code>Connections</code> → make sure the pages you want Claude to read are shared with the integration</div>
+        </div>
+        <span class="connector-tag tag-essential">Set up today</span>
+      </div>
+
+      <div class="connector-card">
+        <div class="connector-icon" style="background: #4285F415; color: #3574D4;">G</div>
+        <h3>Google Drive</h3>
+        <div class="connector-what">Your file system</div>
+        <p>Searches and reads Google Docs stored in Drive. If you have shared docs, past campaign plans, client briefs, or strategy documents in Drive — Claude can access them and use that context in your Cowork tasks.</p>
+        <div class="connector-steps">
+          <div class="connector-steps-label">How to connect</div>
+          <div class="connector-step" data-step="1.">Open Claude Desktop → <code>Settings</code> → <code>Connectors</code></div>
+          <div class="connector-step" data-step="2.">Find <code>Google Drive</code> and click <code>Connect</code></div>
+          <div class="connector-step" data-step="3.">Sign in with your Google account and authorise</div>
+          <div class="connector-step" data-step="4.">Claude can now search and read your Google Docs — toggle it on per conversation via the <code>+</code> button</div>
+        </div>
+        <span class="connector-tag tag-essential">Set up today</span>
+      </div>
+
+      <div class="connector-card">
+        <div class="connector-icon" style="background: #0F9D5815; color: #0F9D58;">Ca</div>
+        <h3>Google Calendar</h3>
+        <div class="connector-what">Your schedule</div>
+        <p>Claude checks your availability, creates events, and finds free slots. Practical for prepping before sessions, scheduling content around your class timetable, or building a Monday briefing that knows what your week looks like.</p>
+        <div class="connector-steps">
+          <div class="connector-steps-label">How to connect</div>
+          <div class="connector-step" data-step="1.">Open Claude Desktop → <code>Settings</code> → <code>Connectors</code></div>
+          <div class="connector-step" data-step="2.">Find <code>Google Calendar</code> and click <code>Connect</code></div>
+          <div class="connector-step" data-step="3.">Sign in with the same Google account you use for scheduling</div>
+          <div class="connector-step" data-step="4.">Claude can now read your calendar and create events</div>
+        </div>
+        <span class="connector-tag tag-recommended">Recommended</span>
+      </div>
+
+      <div class="connector-card">
+        <div class="connector-icon" style="background: #EA433515; color: #D03A2E;">M</div>
+        <h3>Gmail</h3>
+        <div class="connector-what">Your inbox</div>
+        <p>Claude reads email threads, drafts replies, and creates new messages. The follow-up emails that sit in your head for days? Claude drafts them. The welcome sequence you've been meaning to write? Claude produces it in your voice, ready for review.</p>
+        <div class="connector-steps">
+          <div class="connector-steps-label">How to connect</div>
+          <div class="connector-step" data-step="1.">Open Claude Desktop → <code>Settings</code> → <code>Connectors</code></div>
+          <div class="connector-step" data-step="2.">Find <code>Gmail</code> and click <code>Connect</code></div>
+          <div class="connector-step" data-step="3.">Sign in with your Google account and authorise</div>
+          <div class="connector-step" data-step="4.">Claude can search your inbox, read threads, and draft messages — it won't send anything without your approval</div>
+        </div>
+        <span class="connector-tag tag-recommended">Recommended</span>
+      </div>
+
+      <div class="connector-card">
+        <div class="connector-icon" style="background: #4285F420; color: #4285F4;">🌐</div>
+        <h3>Claude in Chrome</h3>
+        <div class="connector-what">Your research assistant</div>
+        <p>Claude opens websites, reads pages, and extracts information — then combines what it finds with your own files and docs. Competitor research, pricing comparisons, content inspiration, market trends. It browses so you don't have to.</p>
+        <div class="connector-steps">
+          <div class="connector-steps-label">How to connect</div>
+          <div class="connector-step" data-step="1.">Open Chrome → go to the Chrome Web Store</div>
+          <div class="connector-step" data-step="2.">Search for <code>Claude in Chrome</code> → click <code>Add to Chrome</code></div>
+          <div class="connector-step" data-step="3.">Sign in with your Claude account when prompted</div>
+          <div class="connector-step" data-step="4.">Pin the extension: click the puzzle piece icon in Chrome → pin Claude</div>
+          <div class="connector-step" data-step="5.">In Claude Desktop: <code>Settings</code> → <code>Connectors</code> → toggle on <code>Claude in Chrome</code></div>
+        </div>
+        <span class="connector-tag tag-recommended">Recommended</span>
+      </div>
+
+      <div class="connector-card">
+        <div class="connector-icon" style="background: var(--amber-light); color: var(--amber);">🖥</div>
+        <h3>Computer Use</h3>
+        <div class="connector-what">Your screen, Claude's hands</div>
+        <p>When there's no connector — Mindbody, Glofox, your booking system, any internal tool — Claude navigates your screen directly. It clicks, scrolls, and types like you would. It's slower than a direct connector, so use it for things that don't have a better path. But it means the answer to "can Claude do this?" is almost always yes.</p>
+        <div class="connector-steps">
+          <div class="connector-steps-label">How to enable</div>
+          <div class="connector-step" data-step="1.">Open Claude Desktop → <code>Settings</code> → <code>General</code> (under Desktop app)</div>
+          <div class="connector-step" data-step="2.">Find <code>Computer Use</code> and toggle it on</div>
+          <div class="connector-step" data-step="3.">Claude will ask permission before accessing each app — you stay in control</div>
+          <div class="connector-step" data-step="4.">Currently available on macOS only, with Pro and Max plans</div>
+        </div>
+        <span class="connector-tag tag-advanced">Advanced</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================
+     TAB 3: IN ACTION
+     ============================================ -->
+<div id="examples" class="page">
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">03 — In Action</div>
+      <div class="section-title">What You'd Actually <em>Use This For</em></div>
+      <div class="section-subtitle">These aren't demos. They're the tasks you've been putting off — done in minutes instead of hours.</div>
+    </div>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 16px;">I'm not going to show you a list of features. I'm going to show you the tasks that I know are sitting on your to-do list right now — and what happens when you hand them to Claude instead of doing them yourself at 9pm on a Tuesday.</p>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 48px;">Each example shows the task, what Claude actually does, and which connectors make it work. The coloured pills on the right tell you what needs to be connected.</p>
+
+    <!-- MARKETING -->
+    <div class="task-category">
+      <h2 class="task-category-header">Marketing &amp; Content</h2>
+      <p class="task-category-sub">This is where most of your week disappears. Let's get it back.</p>
+      
+      <div class="task-list">
+        <div class="task-item">
+          <div>
+            <h4>"I haven't posted in 4 days and I've got nothing planned"</h4>
+            <p>You write one brief. Claude reads your Brand Guidelines and Offer Document, writes 5 captions in your voice — with hooks that stop the scroll and CTAs that actually drive action — then designs matching graphics in Canva, sized for Instagram. Five ready-to-post pieces. No Canva tab open. No staring at a blank caption box. Done.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-canva">Canva</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div>
+            <h4>"I want to run a challenge but I don't know where to start"</h4>
+            <p>Claude browses competitor websites through Chrome to see what challenges are running in your area — pricing, duration, inclusions, positioning. Then it cross-references against your Offer Document and produces a complete challenge brief: name, structure, pricing, what's included, launch timeline, and the first week of promotional content. Saved to Notion, ready for you to review and refine.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-chrome">Chrome</span>
+            <span class="tool-pill pill-notion">Notion</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div>
+            <h4>"I said something great on a call but I can't remember what it was"</h4>
+            <p>Drop a call transcript or voice note into your Cowork folder. Claude finds the three strongest insights, rewrites each one as a standalone social post in your voice, drafts a newsletter paragraph for each, and generates matching Canva graphics. One conversation you already had becomes a week of content you didn't have to think about.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-canva">Canva</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div>
+            <h4>"I need a lead magnet but I've been saying that for 3 months"</h4>
+            <p>Describe the topic and who it's for. Claude writes the content, structures it as a guide with clear sections, designs it in Canva as a professional multi-page PDF with your brand feel, and exports it. You upload it to your funnel. The lead magnet that's been an idea since January is now an asset in your business.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-canva">Canva</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENT COMMS -->
+    <div class="task-category">
+      <h2 class="task-category-header">Client Communication</h2>
+      <p class="task-category-sub">You know the follow-up matters. You just never get to it. Now you don't have to be the one doing it.</p>
+      
+      <div class="task-list">
+        <div class="task-item">
+          <div>
+            <h4>"My leads go cold because I don't have a nurture sequence"</h4>
+            <p>Claude reads your Offer Document and ICP, then writes a 4-email sequence: warm welcome, value-first education, social proof story, and a soft CTA to book a call. Written in your voice, not template-speak. You take the copy and drop it straight into your CRM workflows. The thing that was costing you conversions every week is now built.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-crm">CRM</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div>
+            <h4>"I've got members who haven't been in for 3 weeks and I haven't reached out"</h4>
+            <p>Tell Claude the situation — how long they've been inactive, what you'd normally say, what offer you'd make to bring them back. It writes the outreach: a genuine check-in SMS, a follow-up email, and a "we miss you" message with a specific reason to come back. Not generic. Written the way you'd actually say it if you had the time. Copy it into your CRM and trigger it.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-crm">CRM</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div>
+            <h4>"New members join and then I don't hear from them until they cancel"</h4>
+            <p>Claude writes a full 30-day onboarding sequence: Day 1 welcome, Day 3 "how was your first session?", Day 7 check-in, Day 14 feedback request, Day 30 milestone celebration. Each touchpoint written in your voice with a specific purpose — building the relationship that prevents the cancellation call you hate having. Drop the copy into your CRM workflows and it runs on autopilot.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-crm">CRM</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN & OPS -->
+    <div class="task-category">
+      <h2 class="task-category-header">Admin &amp; Operations</h2>
+      <p class="task-category-sub">The stuff that doesn't feel urgent until it is. Let Claude handle it before it becomes a fire.</p>
+      
+      <div class="task-list">
+        <div class="task-item">
+          <div>
+            <h4>"Everything is in my head and I know that's a problem"</h4>
+            <p>Talk through how you do something — your new member onboarding, how you handle a no-show, your trial session process. Just explain it naturally. Claude turns your explanation into a formatted, step-by-step SOP document and saves it to Notion. You've been meaning to do this for months. It takes 10 minutes when you stop trying to write it and just talk.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-notion">Notion</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div>
+            <h4>"I start every Monday not knowing what to focus on"</h4>
+            <p>Claude checks your Google Calendar, reads your recent notes in Drive, and produces a Monday briefing: what's coming up this week, what needs attention, what you should prioritise, and what can wait. Delivered as a document before your first coffee. You sit down knowing exactly where to start.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-calendar">Calendar</span>
+            <span class="tool-pill pill-drive">Drive</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div>
+            <h4>"I don't think my offer is as clear as it needs to be"</h4>
+            <p>Point Claude at your Business Profile, Offer Doc, ICP, and Brand Guidelines. Ask it to review them as if it were a consultant seeing your business for the first time. It reads across all four documents and produces a gap analysis — where the messaging doesn't match the offer, where the ICP doesn't align with the positioning, where a prospect would get confused. Strategic clarity in 5 minutes.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div>
+            <h4>"I need to pull numbers from Mindbody but the reports are painful"</h4>
+            <p>With Computer Use enabled, Claude opens your Mindbody, Glofox, or other platform in Chrome, navigates the dashboard, and pulls the data you need — attendance trends, at-risk members, class utilisation. It's slower than a direct connector because Claude is literally navigating your screen. But the alternative was you spending 30 minutes doing it manually. Pick your trade-off.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-computer">Computer Use</span>
+            <span class="tool-pill pill-chrome">Chrome</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRATEGY -->
+    <div class="task-category">
+      <h2 class="task-category-header">Strategy &amp; Research</h2>
+      <p class="task-category-sub">The important work that keeps getting pushed to "next week." Stop pushing it.</p>
+      
+      <div class="task-list">
+        <div class="task-item">
+          <div>
+            <h4>"I don't know what my competitors are actually doing"</h4>
+            <p>Name 3 competitors. Claude browses their websites through Chrome — their offers, pricing, messaging, how they describe their ideal client, what their lead magnet looks like. Then it reads your Business Profile and produces a side-by-side comparison with a section at the end on where you have the clearest opportunity to stand out. The kind of analysis you'd pay a consultant $2k for, done while you eat lunch.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-chrome">Chrome</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div>
+            <h4>"Am I charging too much? Too little? I honestly don't know"</h4>
+            <p>Describe your current offers and pricing. Claude researches comparable businesses in your area using Chrome — what they charge, what's included, how they position value. Then it produces a pricing comparison with recommendations on where you're leaving money on the table and where you might be creating friction. Data tells the truth. Not your gut, not your competitor's Instagram — the actual market.</p>
+          </div>
+          <div class="task-tools">
+            <span class="tool-pill pill-chrome">Chrome</span>
+            <span class="tool-pill pill-cowork">Cowork</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================
+     TAB 4: SETUP
+     ============================================ -->
+<div id="setup" class="page">
+
+  <div class="section section-dark">
+    <div class="section-header">
+      <div class="section-number">04 — Setup</div>
+      <div class="section-title" style="color: var(--cream);">Do This <em>Before</em> the Call</div>
+      <div class="section-subtitle">I'm going to be honest — if you show up without this done, you'll spend the first 30 minutes watching other people do the fun stuff while you're still installing things. Don't be that person.</div>
+    </div>
+
+    <p style="font-size: 16px; color: var(--neutral-400); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 16px;">This takes about 15 minutes total. Put a podcast on and knock it out tonight. You'll thank yourself tomorrow.</p>
+
+    <p style="font-size: 16px; color: var(--neutral-400); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 48px;">Tap each item to check it off as you go.</p>
+
+    <div class="setup-list">
+      <div class="setup-item" onclick="toggleCheck(this)">
+        <div class="setup-check"></div>
+        <div class="setup-item-content">
+          <h4>Claude Pro subscription — $20/month minimum</h4>
+          <p>Cowork doesn't work on the free plan. Pro gives you access to everything in this guide. Max ($100/month) gives higher usage limits if you're planning to use it heavily. Go to claude.ai and upgrade if you haven't already.</p>
+        </div>
+      </div>
+
+      <div class="setup-item" onclick="toggleCheck(this)">
+        <div class="setup-check"></div>
+        <div class="setup-item-content">
+          <h4>Download the Claude Desktop app — latest version</h4>
+          <p>Cowork runs in the Desktop app, not the browser. Go to claude.com/download and install it. If you already have it, open it and check for updates. This is the most common reason things don't work on the call — people are running an old version.</p>
+        </div>
+      </div>
+
+      <div class="setup-item" onclick="toggleCheck(this)">
+        <div class="setup-check"></div>
+        <div class="setup-item-content">
+          <h4>Connect Canva</h4>
+          <p>Open Claude Desktop → Settings → Connectors → find Canva → Connect → sign into your Canva account and authorise. You need an existing Canva account — free works, Pro is better. This is the connector you'll use most.</p>
+        </div>
+      </div>
+
+      <div class="setup-item" onclick="toggleCheck(this)">
+        <div class="setup-check"></div>
+        <div class="setup-item-content">
+          <h4>Connect Notion</h4>
+          <p>Settings → Connectors → find Notion → Connect → authorise your workspace. Important: after connecting, go into Notion → Settings → Connections and make sure the specific pages you want Claude to read are shared with the integration. If you skip this step, Claude can see Notion but can't read anything in it.</p>
+        </div>
+      </div>
+
+      <div class="setup-item" onclick="toggleCheck(this)">
+        <div class="setup-check"></div>
+        <div class="setup-item-content">
+          <h4>Connect Google Drive</h4>
+          <p>Settings → Connectors → find Google Drive → Connect → sign in with your Google account. Claude can then search and read your Google Docs. If your business documents live in Drive, this is how Claude accesses them.</p>
+        </div>
+      </div>
+
+      <div class="setup-item" onclick="toggleCheck(this)">
+        <div class="setup-check"></div>
+        <div class="setup-item-content">
+          <h4>Connect Google Calendar</h4>
+          <p>Settings → Connectors → find Google Calendar → Connect → sign in with the same Google account you use for scheduling. Once connected, Claude can read your calendar, check availability, and create events.</p>
+        </div>
+      </div>
+
+      <div class="setup-item" onclick="toggleCheck(this)">
+        <div class="setup-check"></div>
+        <div class="setup-item-content">
+          <h4>Connect Gmail</h4>
+          <p>Settings → Connectors → find Gmail → Connect → sign in and authorise. Claude can search your inbox, read threads, and draft messages. It won't send anything without your explicit approval — so don't worry about it going rogue on your inbox.</p>
+        </div>
+      </div>
+
+      <div class="setup-item" onclick="toggleCheck(this)">
+        <div class="setup-check"></div>
+        <div class="setup-item-content">
+          <h4>Install Claude in Chrome</h4>
+          <p>Open Chrome → Chrome Web Store → search "Claude in Chrome" → Add to Chrome → sign in with your Claude account. Then pin it: click the puzzle piece icon in your toolbar and pin Claude. Finally, go back to Claude Desktop → Settings → Connectors and toggle on Claude in Chrome. Three steps — extension, sign-in, enable.</p>
+        </div>
+      </div>
+
+      <div class="setup-item" onclick="toggleCheck(this)">
+        <div class="setup-check"></div>
+        <div class="setup-item-content">
+          <h4>Enable Computer Use (optional — for the adventurous)</h4>
+          <p>Claude Desktop → Settings → General (under Desktop app) → toggle on Computer Use. This lets Claude control your screen when there's no connector for an app. Currently macOS only, Pro and Max plans. We'll demo this on the call — you don't need to have it working beforehand, but having it enabled means you can follow along.</p>
+        </div>
+      </div>
+
+      <div class="setup-item" onclick="toggleCheck(this)">
+        <div class="setup-check"></div>
+        <div class="setup-item-content">
+          <h4>Have your Session 1 documents ready</h4>
+          <p>Your Business Profile, Offer Document, ICP, and Brand Guidelines from last week. If they're in a Claude Project, you're good. If they're in Notion or a local folder, make sure Claude can access them. These are the intelligence layer that makes everything in Cowork actually sound like you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">04B — Honest Edges</div>
+      <div class="section-title">What Cowork <em>Can't Do Yet</em></div>
+      <div class="section-subtitle">I'd rather you know the limitations now than discover them mid-task and lose trust in the tool. Cowork is powerful, but it's still early. Here's where the edges are.</div>
+    </div>
+
+    <div class="limits-grid">
+      <div class="limit-card">
+        <h4>It eats through your usage faster than Chat</h4>
+        <p>A Cowork task that coordinates across Canva, Notion, and Chrome uses significantly more of your plan allocation than a chat conversation. You'll feel this on a Pro plan. Batch related work into single sessions rather than running 10 separate small tasks — it's more efficient and produces better output.</p>
+      </div>
+      <div class="limit-card">
+        <h4>Computer Use is impressive but slow</h4>
+        <p>When Claude controls your screen, every click requires a screenshot, a decision, and another action. A task that takes 2 minutes through a connector might take 15 through screen control. Use it when there's no other option — not as your default. Connectors first, Computer Use as the backup.</p>
+      </div>
+      <div class="limit-card">
+        <h4>Complex tasks sometimes need a nudge</h4>
+        <p>If you ask Claude to do 6 things across 4 tools, it might get one step slightly wrong. That's normal. You can jump in at any point and redirect. Think of it like a junior team member — capable, fast, but benefits from a check-in on bigger projects. The more specific your brief, the less often this happens.</p>
+      </div>
+      <div class="limit-card">
+        <h4>Your laptop needs to stay open</h4>
+        <p>Cowork runs on your computer. If you close the lid or quit the Claude Desktop app, the session ends. When you give Claude a task and step away, just make sure your laptop stays awake. Adjust your sleep settings if needed.</p>
+      </div>
+      <div class="limit-card">
+        <h4>Canva output is 80% — not 100%</h4>
+        <p>The designs Claude generates in Canva are a strong first draft. Layout, colours, text — all solid. But it's not a graphic designer. Expect to open Canva afterwards and tweak a font size, adjust spacing, or swap an image. 5 minutes of polish on top of work you didn't have to start from scratch? That's still a massive win.</p>
+      </div>
+      <div class="limit-card">
+        <h4>No direct connector for your member management software</h4>
+        <p>There's no one-click connection for Mindbody, Glofox, or similar platforms yet. Computer Use can navigate these through your screen, but it's the slowest path. For data analysis, the fastest workaround is exporting a CSV and dropping it into your Cowork folder — Claude analyses it in seconds. For your CRM, Claude writes the copy (emails, SMS, sequences) and you paste it into your workflows — that part is seamless.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================
+     TAB 5: POSSIBLE TASKS
+     ============================================ -->
+<div id="tasks" class="page">
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">05 — Your Task Menu</div>
+      <div class="section-title">Come Back to This <em>Every Week</em></div>
+      <div class="section-subtitle">This is the page you bookmark. Every time you catch yourself thinking "I really should do that" — check if it's here. If it is, write the brief and hand it off.</div>
+    </div>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 16px;">The simple filter: if a task involves writing, researching, organising, designing, or combining information from different places — Claude can do it. If it requires your physical presence, your logged-in credentials to a sensitive account, or a judgment call only you can make — that's still yours.</p>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 48px;">I've organised these by how often you'd run them. The weekly ones are your biggest time savings — they compound. The monthly ones are the projects that have been sitting on your list for months. The phone tasks are for when you're between sessions and remember something that needs doing.</p>
+
+    <!-- WEEKLY RECURRING -->
+    <div class="task-category">
+      <h2 class="task-category-header">Every Week</h2>
+      <p class="task-category-sub">Set these up once. Run them every Monday. This alone gets you 4-6 hours back per week.</p>
+      
+      <div class="task-list">
+        <div class="task-item">
+          <div>
+            <h4>Weekly content plan + matching Canva designs</h4>
+            <p>5 posts — hooks, captions in your voice, CTAs, and graphics sized for your platform. One brief. Done before you finish your first coffee.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-canva">Canva</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>Monday focus briefing</h4>
+            <p>Calendar overview, priorities for the week, outstanding follow-ups, and what to focus on first. Claude reads your calendar and notes, then delivers a one-page briefing. You start Monday with clarity, not chaos.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-calendar">Calendar</span><span class="tool-pill pill-drive">Drive</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>Inbox triage + draft replies</h4>
+            <p>Claude reads your recent emails, flags anything urgent, and drafts replies for the ones that need a response. You review, tweak, send. The inbox that normally eats 45 minutes becomes a 10-minute review.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-gmail">Gmail</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>Repurpose last week's best content</h4>
+            <p>Point Claude at your top-performing post from last week. It turns it into 3 new formats — a carousel, a story sequence, and a long-form caption — each designed in Canva. One idea, four touchpoints, zero extra thinking.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-canva">Canva</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONTHLY / AS NEEDED -->
+    <div class="task-category">
+      <h2 class="task-category-header">Monthly or When You Need It</h2>
+      <p class="task-category-sub">The bigger projects. Each one used to take a full day. Now it takes a brief and a cup of tea.</p>
+      
+      <div class="task-list">
+        <div class="task-item">
+          <div>
+            <h4>Monthly newsletter</h4>
+            <p>Claude pulls your recent content, coaching call insights, or Notion notes, then writes a full newsletter — opening story, value section, CTA — in your voice. Not a template. An actual newsletter you'd be proud to send.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-notion">Notion</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>Campaign creative package</h4>
+            <p>Give Claude your offer details. It writes ad copy variations (hooks, body, CTAs), designs the creative assets in Canva, and produces a campaign brief document. Hand the package to your ads manager or run it yourself.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-canva">Canva</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>New offer or program design</h4>
+            <p>Concept to document in one sitting. Claude researches the market, writes the structure, pricing, inclusions, sales copy, objection handlers, and FAQ. The offer stops being an idea and becomes something you can sell from.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-chrome">Chrome</span><span class="tool-pill pill-notion">Notion</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>CRM email and SMS copy</h4>
+            <p>Nurture sequences, re-engagement flows, welcome automations, booking reminders. Claude writes the full copy for each touchpoint in your voice — you paste it into your CRM workflows. The automations you've been meaning to build finally have words in them.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-crm">CRM</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>SOP sprint</h4>
+            <p>Record yourself talking through 3-5 key processes — voice notes are fine. Drop them in a folder. Claude transcribes, structures, and formats each one into a proper SOP in Notion. The knowledge that's been locked in your head is now something your team can follow.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-notion">Notion</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>Presentation or pitch deck</h4>
+            <p>Describe the audience and what you want to achieve. Claude writes the content and builds a full presentation in Canva — slides, structure, speaker notes. Partnership meetings, team trainings, client pitches — done in 15 minutes, not 3 hours.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-canva">Canva</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>Lead magnet creation</h4>
+            <p>Topic in, designed PDF out. Claude writes the content, structures it as a guide, designs it in Canva, and exports it. Upload to your funnel. Done in 15 minutes.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-canva">Canva</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>Competitive landscape report</h4>
+            <p>Name your competitors. Claude browses their sites, analyses positioning and pricing, and delivers a comparison with your differentiation opportunities. The strategic clarity you never make time for.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-chrome">Chrome</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>Staff onboarding guide</h4>
+            <p>Describe your expectations, culture, and key processes. Claude produces a formatted onboarding document your next hire can follow from day one. Covers what you expect, how things work, and where to find things — without you having to explain it in person for the fourth time.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-notion">Notion</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>Testimonial compilation + social proof graphics</h4>
+            <p>Point Claude at your Google reviews, DMs, or a folder of screenshots. It extracts the strongest quotes, organises them by theme (results, experience, transformation), and designs social proof graphics in Canva. Your best marketing asset — your clients' words — packaged and ready to post.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-canva">Canva</span><span class="tool-pill pill-drive">Drive</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>Business document audit</h4>
+            <p>Point Claude at your Business Profile, Offer Doc, ICP, and Brand Guidelines. It reads across all four and surfaces gaps, contradictions, and missed opportunities. A fresh set of eyes on your own positioning — without paying a consultant.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FROM YOUR PHONE -->
+    <div class="task-category">
+      <h2 class="task-category-header">From Your Phone</h2>
+      <p class="task-category-sub">Dispatch lets you message Claude from your phone and come back to finished work on your desktop. You're between sessions, you think of something — send it. Claude handles the rest.</p>
+      
+      <div class="task-list">
+        <div class="task-item">
+          <div>
+            <h4>"Prep my notes for tomorrow's meetings"</h4>
+            <p>Send this while you're wrapping up at the gym. Claude checks your calendar, pulls relevant docs, and compiles a briefing. It's sitting on your desktop when you open your laptop in the morning.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-calendar">Calendar</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>"Create 3 story templates for this week's promo"</h4>
+            <p>You're on the train. You text Claude the offer details. By the time you get home, the Canva designs are exported and ready. No laptop required for the thinking — just the reviewing.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-canva">Canva</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>"Summarise my inbox and flag anything I need to deal with"</h4>
+            <p>Sunday night. You're not going to open your laptop. But you want to know what's waiting for you. Claude reads your inbox and sends you a summary with draft replies for anything that needs action. You walk into Monday knowing exactly where to start.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-gmail">Gmail</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+        <div class="task-item">
+          <div>
+            <h4>"Write an SMS to all members who haven't been in this week"</h4>
+            <p>You notice attendance was light on Thursday. You text Claude the scenario. It writes a warm, personal check-in message you can paste straight into your CRM broadcast. Proactive retention from your phone, in 30 seconds.</p>
+          </div>
+          <div class="task-tools"><span class="tool-pill pill-crm">CRM</span><span class="tool-pill pill-cowork">Cowork</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================
+     TAB 6: THE BRIEF
+     ============================================ -->
+<div id="brief" class="page">
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">06 — The Brief</div>
+      <div class="section-title">This Is the <em>One Skill</em> That Makes Everything Else Work</div>
+      <div class="section-subtitle">If you take one thing from today's session, make it this. The brief is the difference between output that sounds like a robot and output that sounds like you.</div>
+    </div>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 16px;">Here's what I've learned from building with AI every day: the tool is not the bottleneck. The brief is. Claude is extraordinarily capable — but it can only work with what you give it. A vague brief gets you vague output. A specific brief gets you something you'd actually use.</p>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 16px;">This is the same principle as delegating to a team member. You wouldn't say "do some marketing" and expect a great result. You'd say what you need, who it's for, what tone to use, and what the finished product looks like. A Cowork brief works exactly the same way.</p>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 48px;">Master this structure and everything on the previous pages becomes available to you. Skip it and you'll get frustrated with the output and blame the tool. Don't blame the tool. Fix the brief.</p>
+
+    <h3 style="font-family: var(--font-heading); font-size: 22px; font-weight: 400; margin-bottom: 24px;">The Five Parts of a Great Brief</h3>
+
+    <div class="brief-block">
+      <span class="brief-label">Brief Structure</span>
+<span class="brief-key">CONTEXT:</span>    <span class="brief-value">Point Claude at the right documents before it starts.</span>
+             <span class="brief-value">"Read my Brand Guidelines and Offer Document from Notion."</span>
+             <span class="brief-value">This is the intelligence layer — without it, Claude guesses.</span>
+             <span class="brief-value">With it, Claude writes like it knows your business.</span>
+
+<span class="brief-key">OBJECTIVE:</span>  <span class="brief-value">What you want done — stated as an outcome, not a process.</span>
+             <span class="brief-value">"Create a 5-post content plan for this week" — not</span>
+             <span class="brief-value">"help me with content." Specific beats vague every time.</span>
+
+<span class="brief-key">INPUTS:</span>     <span class="brief-value">Which connectors and files to use. Be explicit.</span>
+             <span class="brief-value">"Design the graphics in Canva, sized for Instagram.</span>
+             <span class="brief-value">Save the content plan to Notion. Use Chrome to research</span>
+             <span class="brief-value">competitor pricing." Tell Claude where to work.</span>
+
+<span class="brief-key">CONSTRAINTS:</span> <span class="brief-value">What to avoid and what to stay within.</span>
+             <span class="brief-value">Tone rules, topics to skip, word limits, platforms to</span>
+             <span class="brief-value">size for, things that sound nothing like you.</span>
+             <span class="brief-value">This is the guardrail that keeps the output on-brand.</span>
+
+<span class="brief-key">OUTPUT:</span>     <span class="brief-value">Describe the finished product. Be specific about format.</span>
+             <span class="brief-value">"5 Canva graphics exported as PNG + a Notion page with</span>
+             <span class="brief-value">all captions, hooks, and CTAs." If Claude knows what</span>
+             <span class="brief-value">'done' looks like, it delivers it. If it doesn't, it guesses.</span>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: 22px; font-weight: 400; margin: 56px 0 12px;">Bad Brief vs. Good Brief</h3>
+
+    <p style="font-size: 15px; color: var(--neutral-600); font-weight: 300; line-height: 1.8; max-width: 700px; margin-bottom: 24px;">This is the difference. Same task. Completely different output quality.</p>
+
+    <div class="brief-block" style="margin-bottom: 4px; border-left-color: var(--red);">
+      <span class="brief-label" style="color: var(--red);">❌ The Bad Brief</span>
+<span class="brief-value">Make me some social media content for this week.
+I run a gym. Make it engaging.</span>
+    </div>
+
+    <p style="font-size: 13px; color: var(--neutral-500); font-weight: 300; line-height: 1.7; max-width: 700px; margin: 16px 0 32px; padding-left: 16px; border-left: 2px solid var(--neutral-200);">Claude has no context about your brand, your audience, your offer, or your voice. It'll produce generic fitness content that could belong to anyone. You'll read it, hate it, and think "AI doesn't work for me." It does. Your brief just didn't give it anything to work with.</p>
+
+    <div class="brief-block" style="border-left-color: var(--green);">
+      <span class="brief-label" style="color: var(--green);">✓ The Good Brief</span>
+<span class="brief-value">Read my Brand Guidelines and Ideal Client Profile from Notion.
+
+Create a 5-post Instagram content plan for this week. Each post needs:
+- A hook (first line that stops the scroll)
+- A caption (150-200 words, conversational, in my voice)
+- A CTA that drives to my bio link
+- A matching graphic designed in Canva, sized for Instagram (1080x1080)
+
+Topics to cover: one client win, one myth-bust about fitness,
+one personal story, one educational tip, one offer-related post.
+
+Avoid: generic fitness motivation quotes, anything that sounds like
+a template, anything that uses the word "journey." My voice is warm,
+direct, and specific — I talk like a coach, not a brand.
+
+Save the content plan as a Notion page and export the Canva graphics.</span>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: 22px; font-weight: 400; margin: 56px 0 24px;">More Briefs You Can Copy and Adapt</h3>
+
+    <div class="brief-block" style="margin-bottom: 24px;">
+      <span class="brief-label">CRM Nurture Sequence</span>
+<span class="brief-value">Read my Offer Document and Ideal Client Profile from Notion.
+
+Write a 4-email nurture sequence for new leads who've just
+opted in through my lead magnet. The goal is to build trust
+and move them toward booking a call.
+
+Email 1: Warm welcome — acknowledge what they downloaded,
+introduce who I am, set expectations for what's coming.
+Email 2: Value-first — one specific insight or tip they can
+use today. Demonstrate expertise without selling.
+Email 3: Social proof — a client story or result that mirrors
+what the reader wants. Make it specific, not vague.
+Email 4: Soft CTA — invite to book a call. No pressure.
+Frame it as "if you're ready, here's the next step."
+
+Write in my voice — direct, warm, no corporate-speak.
+Each email should be 150-250 words. Short paragraphs.
+The kind of email you'd actually read, not skim and delete.
+
+Save all 4 emails as a single document I can paste into
+my CRM workflows.</span>
+    </div>
+
+    <div class="brief-block" style="margin-bottom: 24px;">
+      <span class="brief-label">Lead Magnet</span>
+<span class="brief-value">Read my Offer Document and Business Profile from the Cowork folder.
+
+Create a lead magnet PDF titled "The 5 Things Keeping Your Gym
+Under $20k/Month (And How to Fix Each One)."
+
+Structure: intro (why this matters), 5 sections (one per mistake
+with a clear fix for each), closing CTA to book a call.
+
+Write in my voice — direct, specific, no fluff. Each section should
+include a real example or scenario a gym owner would recognise.
+The reader should finish it and think "this person actually
+understands my business."
+
+Design it in Canva as a professional multi-page document using
+clean, modern formatting. Export as PDF.</span>
+    </div>
+
+    <div class="brief-block" style="margin-bottom: 24px;">
+      <span class="brief-label">Competitor Research</span>
+<span class="brief-value">Use Claude in Chrome to research these 3 businesses:
+- [Competitor 1 website URL]
+- [Competitor 2 website URL]
+- [Competitor 3 website URL]
+
+For each, find: their main offer, pricing (if visible), how they
+describe their ideal client, their lead magnet or free offer,
+and how they position themselves differently.
+
+Then read my Business Profile and Offer Document from the
+Cowork folder.
+
+Produce a side-by-side comparison document with a final section
+on where I have the clearest opportunity to differentiate.
+Be specific — don't just say "you're different." Tell me exactly
+what gap exists and how I could fill it.
+
+Save as a document in my Cowork folder.</span>
+    </div>
+
+    <div class="brief-block">
+      <span class="brief-label">30-Day Member Onboarding Sequence</span>
+<span class="brief-value">Read my Brand Guidelines and Offer Document from Notion.
+
+Write a 30-day onboarding sequence for new members who've
+just signed up. The goal is to make them feel welcome, build
+the habit, and prevent early cancellations.
+
+Touchpoints:
+- Day 1: Welcome message (warm, personal, what to expect)
+- Day 3: "How was your first session?" check-in
+- Day 7: Tips for getting the most out of their membership
+- Day 14: Feedback request (what's working, what's not)
+- Day 21: Invite to bring a friend or try a different class
+- Day 30: Celebration message (one month milestone)
+
+Each message should work as both an email and an SMS.
+Write the full version (email) and a short version (SMS)
+for each touchpoint.
+
+My tone is like a coach who genuinely cares — not a brand
+sending automated messages. These should feel personal.
+
+Save as a single document organised by day, with email
+and SMS versions side by side. Ready to paste into my CRM.</span>
+    </div>
+  </div>
+
+  <div class="callout-dark" style="margin: 0;">
+    <p>The brief takes 2 minutes to write. Claude takes 5-15 minutes to execute. You get back <em>hours every single week</em>. That's the trade. And it only gets faster as you learn what works.</p>
+  </div>
+
+  <div class="section" style="padding: 56px 40px;">
+    <div class="section-header">
+      <div class="section-number">What's Next</div>
+      <div class="section-title">Your <em>24-Hour</em> Challenge</div>
+    </div>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 16px;">Before next week's session, I want you to do one thing: write one brief for a task you've been putting off. Use the structure on this page. Run it in Cowork. See what happens.</p>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 16px;">Bring the result to next week's call. We'll look at what worked, what didn't, and what you'd change about the brief. That's how this skill gets sharp — not from watching demos, but from running real tasks in your own business.</p>
+
+    <p style="font-size: 16px; color: var(--neutral-600); font-weight: 300; line-height: 1.85; max-width: 700px; margin-bottom: 16px;">Next up: <strong style="font-weight: 500; color: var(--ink);">Claude Code</strong> — two sessions where we go from delegation to building. If Cowork is your new team member, Code is your new developer. And you don't need to know how to code to use it. That's the whole point.</p>
+
+    <p style="font-size: 16px; color: var(--ink); font-weight: 400; line-height: 1.85; max-width: 700px;">See you Wednesday. Don't just read this guide — use it.</p>
+  </div>
+
+  <div class="pack-footer">
+    <span class="brand-logo">Kaizen Collective</span>
+    <p>Claude Cowork Session Guide · Wednesday Training · 2026</p>
+  </div>
+
+</div>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+  function showTab(tabId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    
+    document.getElementById(tabId).classList.add('active');
+    
+    const tabs = ['problem', 'solution', 'examples', 'setup', 'tasks', 'brief'];
+    const index = tabs.indexOf(tabId);
+    const activeBtn = document.querySelectorAll('.tab-btn')[index];
+    activeBtn.classList.add('active');
+    
+    // Scroll active tab into view on mobile
+    activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleCheck(item) {
+    const check = item.querySelector('.setup-check');
+    check.classList.toggle('checked');
+  }
+
+  // Prevent iOS rubber-banding on fixed header
+  document.addEventListener('touchmove', function(e) {}, { passive: true });
+
+  // Add swipe support for tab navigation on mobile
+  (function() {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const tabs = ['problem', 'solution', 'examples', 'setup', 'tasks', 'brief'];
+    
+    document.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    document.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      
+      // Only trigger on significant horizontal swipes (not scrolling)
+      if (Math.abs(diff) < 80) return;
+      
+      // Find current active tab
+      const currentTab = document.querySelector('.page.active');
+      if (!currentTab) return;
+      const currentIndex = tabs.indexOf(currentTab.id);
+      
+      if (diff > 0 && currentIndex < tabs.length - 1) {
+        // Swipe left — next tab
+        showTab(tabs[currentIndex + 1]);
+      } else if (diff < 0 && currentIndex > 0) {
+        // Swipe right — previous tab
+        showTab(tabs[currentIndex - 1]);
+      }
+    }, { passive: true });
+  })();
+</script>
+
+</body>
+</html>
